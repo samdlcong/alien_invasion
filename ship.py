@@ -36,3 +36,7 @@ class Ship():
         
         # 根据self.center 更新rect对象 自动忽略小数
         self.rect.centerx = self.center
+
+    def center_ship(self):
+        """让飞船在屏幕居中"""
+        self.center = self.screen_rect.centerx
