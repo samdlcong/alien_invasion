@@ -83,6 +83,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         #删除现有的子弹并新建一群外星人
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 
@@ -178,6 +179,8 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
     """在玩家单击Play按钮时开始新游戏"""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
+        #重置游戏设置
+        ai_settings.initialize_dynamic_settings()
         start_game(ai_settings, screen, stats, ship, aliens, bullets)
 
 
