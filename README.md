@@ -8,5 +8,5 @@ This project is written by Python & Pygame as an exercise to learn Python & Pyga
 ## How to Start Game
 & python alien_invasion.py
 ## ScreenShot
-![](https://github.com/samnew/alien_invasion/master/screenshots/screenshot_1.png)
-![](https://github.com/samnew/alien_invasion/master/screenshots/screenshot_2.png)
+![](https://raw.githubusercontent.com/samnew/alien_invasion/master/screenshots/screenshot_1.png)
+![](https://raw.githubusercontent.com/samnew/alien_invasion/master/screenshots/screenshot_2.png)
