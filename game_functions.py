@@ -134,17 +134,17 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     number_rows = int(availabe_space_y / (2 * alien_height))
     return number_rows
 
-def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
     """更新外星人群中所有外星人的位置"""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
     #检测外星人和飞船之间的碰撞
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets)
 
     # 检查是否有外星人到达屏幕底端
-    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, screen, sb, ship, aliens, bullets)
 
 def check_fleet_edges(ai_settings, aliens):
     """有外星人到达边缘时采取相应的措施"""
@@ -159,12 +159,12 @@ def change_fleet_direction(ai_settings, aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets):
     """响应被外星人撞到的飞船"""
     if stats.ships_left > 0:
         # 将ships_left减1
         stats.ships_left -= 1
-
+        sb.prep_ships()
         # 清空外星人列表和子弹列表
         aliens.empty()
         bullets.empty()
@@ -178,13 +178,13 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     else:
         stats.game_active = False
 
-def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, stats, screen, sb, ship, aliens, bullets):
     """检查是否有外星人到达了屏幕底端"""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
             # 像飞船被撞到一样进行处理
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets)
             break
 
 def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets, mouse_x, mouse_y):
@@ -208,6 +208,7 @@ def start_game(ai_settings, screen, stats, sb, ship, aliens, bullets):
     sb.prep_score()
     sb.prep_high_score()
     sb.prep_level()
+    sb.prep_ships()
     #清空外星人列表和子弹列表
     aliens.empty()
     bullets.empty()
