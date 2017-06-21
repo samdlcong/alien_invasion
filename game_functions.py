@@ -14,6 +14,7 @@ def check_keydown_events(event, ai_settings, screen, stats, sb, ship, aliens, bu
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
     elif event.key == pygame.K_q:
+            stats.save_high_score()
             sys.exit() 
     elif event.key == pygame.K_p and not stats.game_active:
         start_game(ai_settings, screen, stats, sb, ship, aliens, bullets)   
@@ -36,6 +37,7 @@ def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bull
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            stats.save_high_score()
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
